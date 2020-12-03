@@ -1,7 +1,7 @@
 TARGET = libnpnt.a
 CC ?= gcc
 AR ?= ar
-CFLAGS = -g -Wall -I. -Iinc/
+CFLAGS = -g -Wall -I. -Iinc/ -D_GNU_SOURCE
 ifeq ($(MAKECMDGOALS),wolfssl)
 CFLAGS += -DRFM_USE_WOLFSSL
 else
