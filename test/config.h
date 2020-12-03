@@ -13,12 +13,11 @@
  * Include necessary headers...
  */
 
+#include <ctype.h>
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdarg.h>
-#include <ctype.h>
-
 
 /*
  * Version number...
@@ -26,20 +25,17 @@
 
 #define MXML_VERSION "Mini-XML v3.0"
 
-
 /*
  * Inline function support...
  */
 
 #define inline
 
-
 /*
  * Long long support...
  */
 
 #define HAVE_LONG_LONG 1
-
 
 /*
  * Do we have the *printf() functions?
@@ -49,7 +45,6 @@
 #define HAVE_VASPRINTF 1
 #define HAVE_VSNPRINTF 1
 
-
 /*
  * Do we have the strXXX() functions?
  */
@@ -58,10 +53,9 @@
 #define HAVE_STRLCAT 1
 #define HAVE_STRLCPY 1
 
-
 /*
  * Define prototypes for string functions as needed...
  */
 
-extern char	*_mxml_strdupf(const char *, ...);
-extern char	*_mxml_vstrdupf(const char *, va_list);
+extern char *_mxml_strdupf(const char *, ...);
+extern char *_mxml_vstrdupf(const char *, va_list);

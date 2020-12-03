@@ -1,7 +1,7 @@
 *.o
-.vscode/
 *.json
 *.pem
 build/
+compile_commands.json
 .DS_Store
 test/test_ifaces

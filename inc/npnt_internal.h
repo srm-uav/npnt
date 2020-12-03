@@ -1,23 +1,21 @@
 /*
  *  This Source Code Form is subject to the terms of the Mozilla Public
  *  License, v. 2.0. If a copy of the MPL was not distributed with this
- *  file, You can obtain one at http://mozilla.org/MPL/2.0/. 
+ *  file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
- /**
+/**
  * @file    inc/npnt_internal.h
  * @brief   Internal methods and structs
  * @{
  */
+#include <control_iface.h>
 #include <defines.h>
 #include <log_iface.h>
 #include <security_iface.h>
-#include <control_iface.h>
-
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
 /**
@@ -32,7 +30,7 @@ extern "C"
  * null terminated to make it easier to use as a C string. The nul terminator is
  * not included in out_len.
  */
-uint8_t* base64_encode(const uint8_t *src, uint16_t len, uint16_t *out_len);
+uint8_t *base64_encode(const uint8_t *src, uint16_t len, uint16_t *out_len);
 
 /**
  * base64_decode - Base64 decode
@@ -44,12 +42,12 @@ uint8_t* base64_encode(const uint8_t *src, uint16_t len, uint16_t *out_len);
  *
  * Caller is responsible for freeing the returned buffer.
  */
-uint8_t* base64_decode(const uint8_t *src, uint16_t len, uint16_t *out_len);
+uint8_t *base64_decode(const uint8_t *src, uint16_t len, uint16_t *out_len);
 
-int8_t npnt_ist_date_time_to_unix_time(const char* dt_string, struct tm* date_time);
-char* npnt_get_attr(mxml_node_t *node, const char* attr);
+int8_t npnt_ist_date_time_to_unix_time(const char *dt_string, struct tm *date_time);
+char *npnt_get_attr(mxml_node_t *node, const char *attr);
 
 #ifdef __cplusplus
-} // extern "C"
+}  // extern "C"
 #endif
- /** @} */
+/** @} */
