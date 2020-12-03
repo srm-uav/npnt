@@ -41,7 +41,7 @@ int8_t npnt_check_authenticity(npnt_s *handle, uint8_t *raw_data, uint16_t raw_d
     if (sz == 0) {
       return -1;
     }
-    uint8_t *filebuf = (uint8_t *)malloc(sz);
+    uint8_t *filebuf = malloc(sz);
     if (filebuf == NULL) {
       return -1;
     }

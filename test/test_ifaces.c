@@ -108,7 +108,7 @@ int16_t read_and_create_signed_json() {
   fseek(file, 0, SEEK_SET);
 
   // Allocate memory
-  buffer = (uint8_t *)malloc(fileLen + 1);
+  buffer = malloc(fileLen + 1);
   if (!buffer) {
     BIO_printf(outbio, "Memory error!");
     fclose(file);
@@ -141,7 +141,7 @@ int16_t read_and_create_signed_json() {
   }
   // export raw signature to DER-encoded format
   sig_len = i2d_ECDSA_SIG(signature, NULL);
-  der_sign = (uint8_t *)malloc(sig_len);
+  der_sign = malloc(sig_len);
   uint8_t *p = der_sign;
   sig_len = i2d_ECDSA_SIG(signature, &p);
   der_sign_base64 = base64_encode(der_sign, sig_len, &der_sign_base64_len);
@@ -192,7 +192,7 @@ int16_t extract_public_key_from_xml_artefact() {
   fseek(artefact_xml, 0, SEEK_SET);
 
   // allocate buffer
-  buffer = (uint8_t *)malloc(file_len + 1);
+  buffer = malloc(file_len + 1);
   if (!buffer) {
     BIO_printf(outbio, "Memory error!");
     fclose(artefact_xml);
@@ -272,7 +272,7 @@ int16_t load_artifact() {
   fseek(artefact_xml, 0, SEEK_SET);
 
   // allocate buffer
-  buffer = (uint8_t *)malloc(file_len + 1);
+  buffer = malloc(file_len + 1);
   if (!buffer) {
     BIO_printf(outbio, "Memory error!\n");
     ret = errno;

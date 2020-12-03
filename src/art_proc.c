@@ -7,6 +7,7 @@
 #include <mxml/mxml.h>
 #include <npnt.h>
 #include <npnt_internal.h>
+#include <stdint.h>
 
 /**
  * @brief   Sets Current Permission Artifact.
@@ -46,7 +47,7 @@ int8_t npnt_set_permart(npnt_s *handle, uint8_t *permart, uint16_t permart_lengt
       return NPNT_PARSE_FAILED;
     }
   } else {
-    handle->raw_permart = (char *)malloc(permart_length);
+    handle->raw_permart = malloc(permart_length);
     if (!handle->raw_permart) {
       return NPNT_PARSE_FAILED;
     }
@@ -162,10 +163,11 @@ int8_t npnt_verify_permart(npnt_s *handle) {
     ret = NPNT_INV_SIGN;
     goto fail;
   }
-  signature_len = strlen(signature);
+  signature_len = strlen((char *)signature);
   raw_signature = base64_decode(signature, signature_len, &raw_signature_len);
   // Check authenticity of the artifact
-  if (npnt_check_authenticity(handle, digest_value, 20, raw_signature, raw_signature_len) <= 0) {
+  if (npnt_check_authenticity(handle, (uint8_t *)digest_value, 20, raw_signature,
+                              raw_signature_len) <= 0) {
     ret = NPNT_INV_AUTH;
     goto fail;
   }
@@ -181,7 +183,7 @@ int8_t npnt_verify_permart(npnt_s *handle) {
     ret = NPNT_INV_ART;
     goto fail;
   }
-  // test_str = (char*)malloc(permission_length + 1);
+  // test_str = malloc(permission_length + 1);
   // memcpy(test_str, raw_perm_without_sign, permission_length);
   // test_str[permission_length] = '\0';
   // printf("\n RAW PERMISSION: \n%s", test_str);
@@ -227,7 +229,7 @@ int8_t npnt_verify_permart(npnt_s *handle) {
   raw_perm_without_sign = strstr(handle->raw_permart, "</Signature>") + strlen("</Signature>");
   update_sha1(raw_perm_without_sign, strlen(raw_perm_without_sign));
   final_sha1(digest_value);
-  base64_digest_value = base64_encode(digest_value, 20, &base64_digest_value_len);
+  base64_digest_value = base64_encode((uint8_t *)digest_value, 20, &base64_digest_value_len);
   // printf("\nDigest Value: \n%s\n", base64_digest_value);
   // printf("\nDigest Value: \n%s\n",
   // mxmlGetOpaque(mxmlFindElement(handle->parsed_permart,
@@ -276,8 +278,8 @@ int8_t npnt_alloc_and_get_fence_points(npnt_s *handle, float *vertlat, float *ve
   }
 
   // Allocate vertices
-  vertlat = (float *)malloc(nverts * sizeof(float));
-  vertlon = (float *)malloc(nverts * sizeof(float));
+  vertlat = malloc(nverts * sizeof(float));
+  vertlon = malloc(nverts * sizeof(float));
 
   if (!vertlat || !vertlon) {
     return -1;
@@ -386,7 +388,7 @@ char *npnt_get_attr(mxml_node_t *node, const char *attr) {
   if (!tmp) {
     return NULL;
   }
-  ret = (char *)malloc(strlen(tmp) + 1);
+  ret = malloc(strlen(tmp) + 1);
   if (!ret) {
     return NULL;
   }
